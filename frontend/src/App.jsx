@@ -15,11 +15,11 @@ function App() {
       try {
         let response;
         if (searchTerm) {
-          response = await fetch(`http://localhost:3000/users/${searchTerm}`, {
+          response = await fetch(`https://dgtlmart-task.onrender.com/users/${searchTerm}`, {
             method: "POST",
           });
         } else {
-          response = await fetch("http://localhost:3000/users");
+          response = await fetch("https://dgtlmart-task.onrender.com/users");
         }
         const data = await response.json();
         console.log(data);
