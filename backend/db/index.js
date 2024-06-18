@@ -1,8 +1,12 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config({ path: '../.env' });
 
-const url = 'mongodb+srv://rahul:Oo53608A9G4k9kw4@cluster0.jvci0gs.mongodb.net/';
-const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.MONGO_URL;
+
+const client = new MongoClient(url);
 let dbConnection;
+
 
 export async function connectToDatabase() {
   if (dbConnection) return dbConnection;
@@ -26,9 +30,9 @@ export async function main() {
 }
 
 export async function findUserByUsername(searchTerm) {
-    const db = await connectToDatabase();
-    const collection = db.collection('movies');
-    const regex = new RegExp(searchTerm, 'i'); 
-    const res = await collection.find({ username: { $regex: regex } }).toArray();
-    return res;
-  }
+  const db = await connectToDatabase();
+  const collection = db.collection('movies');
+  const regex = new RegExp(searchTerm, 'i');
+  const res = await collection.find({ username: { $regex: regex } }).toArray();
+  return res;
+}
